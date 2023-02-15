@@ -8,17 +8,19 @@ public class UnitManager : MonoBehaviour
 
     public static UnitManager Instance { get; private set; }
 
+
     private List<Unit> unitList;
     private List<Unit> friendlyUnitList;
     private List<Unit> enemyUnitList;
+
 
     private void Awake()
     {
         if (Instance != null)
         {
-            Debug.LogError("There is more than one UnitManager! " + transform + " - " + Instance);
+            Debug.LogError("There's more than one UnitManager! " + transform + " - " + Instance);
             Destroy(gameObject);
-            return ;
+            return;
         }
         Instance = this;
 
@@ -42,7 +44,7 @@ public class UnitManager : MonoBehaviour
         if (unit.IsEnemy())
         {
             enemyUnitList.Add(unit);
-        } else 
+        } else
         {
             friendlyUnitList.Add(unit);
         }
@@ -57,7 +59,8 @@ public class UnitManager : MonoBehaviour
         if (unit.IsEnemy())
         {
             enemyUnitList.Remove(unit);
-        } else 
+        }
+        else
         {
             friendlyUnitList.Remove(unit);
         }
@@ -77,4 +80,5 @@ public class UnitManager : MonoBehaviour
     {
         return enemyUnitList;
     }
+
 }

@@ -4,8 +4,9 @@ using UnityEngine;
 
 public class GridSystemVisualSingle : MonoBehaviour
 {
-    // Start is called before the first frame update
-    [SerializeField]private MeshRenderer meshRenderer;
+
+    [SerializeField] private MeshRenderer meshRenderer;
+
 
     public void Show(Material material)
     {
@@ -17,4 +18,5 @@ public class GridSystemVisualSingle : MonoBehaviour
     {
         meshRenderer.enabled = false;
     }
+
 }

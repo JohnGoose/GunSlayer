@@ -7,10 +7,10 @@ using TMPro;
 public class ActionButtonUI : MonoBehaviour
 {
 
-
     [SerializeField] private TextMeshProUGUI textMeshPro;
     [SerializeField] private Button button;
     [SerializeField] private GameObject selectedGameObject;
+
 
     private BaseAction baseAction;
 
@@ -29,4 +29,5 @@ public class ActionButtonUI : MonoBehaviour
         BaseAction selectedBaseAction = UnitActionSystem.Instance.GetSelectedAction();
         selectedGameObject.SetActive(selectedBaseAction == baseAction);
     }
+
 }

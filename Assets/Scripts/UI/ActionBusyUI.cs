@@ -4,13 +4,14 @@ using UnityEngine;
 
 public class ActionBusyUI : MonoBehaviour
 {
-    // [SerializeField] private Transform 
 
-    private void Start() {
+    private void Start()
+    {
         UnitActionSystem.Instance.OnBusyChanged += UnitActionSystem_OnBusyChanged;
 
         Hide();
     }
+
     private void Show()
     {
         gameObject.SetActive(true);
@@ -26,9 +27,10 @@ public class ActionBusyUI : MonoBehaviour
         if (isBusy)
         {
             Show();
-        } else 
+        } else
         {
             Hide();
         }
     }
+
 }

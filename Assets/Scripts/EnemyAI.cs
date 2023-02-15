@@ -6,7 +6,8 @@ using UnityEngine;
 public class EnemyAI : MonoBehaviour
 {
 
-    private enum State {
+    private enum State
+    {
         WaitingForEnemyTurn,
         TakingTurn,
         Busy,
@@ -19,14 +20,18 @@ public class EnemyAI : MonoBehaviour
     {
         state = State.WaitingForEnemyTurn;
     }
-    private void Start() {
+
+    private void Start()
+    {
         TurnSystem.Instance.OnTurnChanged += TurnSystem_OnTurnChanged;
     }
-    
-    private void Update() {
 
+    private void Update()
+    {
         if (TurnSystem.Instance.IsPlayerTurn())
-            return ;
+        {
+            return;
+        }
 
         switch (state)
         {
@@ -36,20 +41,19 @@ public class EnemyAI : MonoBehaviour
                 timer -= Time.deltaTime;
                 if (timer <= 0f)
                 {
-                    state = State.Busy;
-                    if (TryTakeEnemyAiAction(SetStateTakingTurn))
+                    if (TryTakeEnemyAIAction(SetStateTakingTurn))
+                    {
                         state = State.Busy;
-                    else {
-                        // No more enemies have actions
+                    } else
+                    {
+                        // No more enemies have actions they can take, end enemy turn
                         TurnSystem.Instance.NextTurn();
                     }
                 }
-                    
                 break;
             case State.Busy:
                 break;
         }
-        
     }
 
     private void SetStateTakingTurn()
@@ -67,32 +71,61 @@ public class EnemyAI : MonoBehaviour
         }
     }
 
-    private bool TryTakeEnemyAiAction(Action onEnemyAIActionComplete)
+    private bool TryTakeEnemyAIAction(Action onEnemyAIActionComplete)
     {
-        Debug.Log("Taking Enemy AI Action");
         foreach (Unit enemyUnit in UnitManager.Instance.GetEnemyUnitList())
         {
-            if (TryTakeEnemyAiAction(enemyUnit, onEnemyAIActionComplete))
+            if (TryTakeEnemyAIAction(enemyUnit, onEnemyAIActionComplete))
+            {
                 return true;
+            }
         }
+
         return false;
     }
 
-    private bool TryTakeEnemyAiAction(Unit enemyUnit, Action onEnemyAIActionComplete)
+    private bool TryTakeEnemyAIAction(Unit enemyUnit, Action onEnemyAIActionComplete)
     {
-        SpinAction spinAction = enemyUnit.GetSpinAction();
+        EnemyAIAction bestEnemyAIAction = null;
+        BaseAction bestBaseAction = null;
 
-        GridPosition actionGridPosition = enemyUnit.GetGridPosition();
+        foreach (BaseAction baseAction in enemyUnit.GetBaseActionArray())
+        {
+            if (!enemyUnit.CanSpendActionPointsToTakeAction(baseAction))
+            {
+                // Enemy cannot afford this action
+                continue;
+            }
 
-        if (!spinAction.IsValidActionGridPos(actionGridPosition))
+            if (!enemyUnit)
+                TurnSystem.Instance.NextTurn();
+
+            if (bestEnemyAIAction == null)
+            {
+                bestEnemyAIAction = baseAction.GetBestEnemyAIAction();
+                bestBaseAction = baseAction;
+            }
+            else
+            {
+                EnemyAIAction testEnemyAIAction = baseAction.GetBestEnemyAIAction();
+                if (testEnemyAIAction != null && testEnemyAIAction.actionValue > bestEnemyAIAction.actionValue)
+                {
+                    bestEnemyAIAction = testEnemyAIAction;
+                    bestBaseAction = baseAction;
+                }
+            }
+
+        }
+
+        if (bestEnemyAIAction != null && enemyUnit.TrySpendActionPointsToTakeAction(bestBaseAction))
+        {
+            bestBaseAction.TakeAction(bestEnemyAIAction.gridPosition, onEnemyAIActionComplete);
+            return true;
+        }
+        else
+        {
             return false;
-        if (!enemyUnit.TrySpendActionPointsToTakeAction(spinAction))
-            return false;
-
-        Debug.Log("Spinning!");
-        spinAction.TakeAction(actionGridPosition, onEnemyAIActionComplete);      
-        return true;      
+        }
     }
-                        
-}
 
+}

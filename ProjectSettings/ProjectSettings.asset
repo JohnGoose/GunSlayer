@@ -4,7 +4,7 @@
 PlayerSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 24
-  productGUID: 5eea6c310ed1b784b98a7dcbdd123b68
+  productGUID: b89f055c3b1c2a24996aaeba98463e72
   AndroidProfiler: 0
   AndroidFilterTouchesWhenObscured: 0
   AndroidEnableSustainedPerformanceMode: 0
@@ -13,7 +13,7 @@ PlayerSettings:
   useOnDemandResources: 0
   accelerometerFrequency: 60
   companyName: DefaultCompany
-  productName: StrategyGame
+  productName: TurnBasedStrategyCourse
   defaultCursor: {fileID: 0}
   cursorHotspot: {x: 0, y: 0}
   m_SplashScreenBackgroundColor: {r: 0.13725491, g: 0.12156863, b: 0.1254902, a: 1}
@@ -239,7 +239,7 @@ PlayerSettings:
   appleEnableProMotion: 0
   shaderPrecisionModel: 0
   clonedFromGUID: 3c72c65a16f0acb438eed22b8b16c24a
-  templatePackageId: com.unity.template.urp-blank@2.0.3
+  templatePackageId: com.unity.template.urp-blank@2.0.2
   templateDefaultScene: Assets/Scenes/SampleScene.unity
   useCustomMainManifest: 0
   useCustomLauncherManifest: 0
@@ -779,7 +779,23 @@ PlayerSettings:
   webGLMemoryLinearGrowthStep: 16
   webGLMemoryGeometricGrowthStep: 0.2
   webGLMemoryGeometricGrowthCap: 96
-  scriptingDefineSymbols: {}
+  scriptingDefineSymbols:
+    Android: PROBUILDER_EXPERIMENTAL_FEATURES
+    CloudRendering: PROBUILDER_EXPERIMENTAL_FEATURES
+    EmbeddedLinux: PROBUILDER_EXPERIMENTAL_FEATURES
+    GameCoreScarlett: PROBUILDER_EXPERIMENTAL_FEATURES
+    GameCoreXboxOne: PROBUILDER_EXPERIMENTAL_FEATURES
+    Lumin: PROBUILDER_EXPERIMENTAL_FEATURES
+    Nintendo Switch: PROBUILDER_EXPERIMENTAL_FEATURES
+    PS4: PROBUILDER_EXPERIMENTAL_FEATURES
+    PS5: PROBUILDER_EXPERIMENTAL_FEATURES
+    QNX: PROBUILDER_EXPERIMENTAL_FEATURES
+    Stadia: PROBUILDER_EXPERIMENTAL_FEATURES
+    Standalone: PROBUILDER_EXPERIMENTAL_FEATURES
+    WebGL: PROBUILDER_EXPERIMENTAL_FEATURES
+    Windows Store Apps: PROBUILDER_EXPERIMENTAL_FEATURES
+    XboxOne: PROBUILDER_EXPERIMENTAL_FEATURES
+    tvOS: PROBUILDER_EXPERIMENTAL_FEATURES
   additionalCompilerArguments: {}
   platformArchitecture: {}
   scriptingBackend: {}
@@ -868,7 +884,7 @@ PlayerSettings:
     m_VersionCode: 1
     m_VersionName: 
   apiCompatibilityLevel: 6
-  activeInputHandler: 0
+  activeInputHandler: 2
   cloudProjectId: 
   framebufferDepthMemorylessMode: 0
   qualitySettingsNames: []
